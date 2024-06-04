@@ -1,16 +1,24 @@
 import React from 'react';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin, GoogleOAuthProvider, googleLogout } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
 
 function SignIn() {
 
   const handleSuccess = (credentialResponse) => {
     console.log(credentialResponse);
+    var decoded = jwtDecode(credentialResponse.credential)
+    console.log(decoded.name, decoded.email)
     console.log("Hi, VIVINNNN AND ANIIIII")
   };
 
   const handleError = () => {
     console.log('Login Failed');
   };
+
+  const Logout = () => {
+    console.log('Logging out')
+    googleLogout()
+  }
 
   return (
     <div>
@@ -22,6 +30,8 @@ function SignIn() {
             onError={handleError}
             />
         </GoogleOAuthProvider>
+        <p>Sign Out Below</p>
+        <button onClick={() => Logout()}>Log Out</button>
     </div>
   );
 }
