@@ -9,13 +9,15 @@ function App() {
         <BrowserRouter>
           <div>
             <Routes>
-              <Route exact path='/' element={<SignIn />}/>
-              <Route exact path='/login' element={<Home />}/>
+              <Route exact path='/' element={<SignIn />}/> 
+              <Route exact path='/home' element={<Home />}/> {/*View current events, Create new event, Join event*/}
             </Routes>
           </div>
         </BrowserRouter>
     </div>
   );
 }
+
+//
 
 export default App;

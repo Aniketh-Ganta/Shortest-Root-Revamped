@@ -5,6 +5,7 @@ function SignIn() {
 
   const handleSuccess = (credentialResponse) => {
     console.log(credentialResponse);
+    console.log("Hi, VIVINNNN AND ANIIIII")
   };
 
   const handleError = () => {
