@@ -1,11 +1,24 @@
 import React from 'react';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from "react-router-dom";
 
-function SignIn() {
+function SignIn({ email, setEmail, firstName, setFirstName, lastName, setLastName }) {
+
+  const navigate = useNavigate();
 
   const handleSuccess = (credentialResponse) => {
-    console.log(credentialResponse);
-    console.log("Hi, VIVINNNN AND ANIIIII")
+    const decodedToken = jwtDecode(credentialResponse.credential);
+    const decodedEmail = decodedToken.email;
+    const decodedFirstName = decodedToken.given_name;
+    const decodedLastName = decodedToken.family_name;
+    setEmail(decodedEmail);
+    setFirstName(decodedFirstName);
+    setLastName(decodedLastName);
+    navigate(`/home`);
+    console.log(email)
+    console.log(firstName)
+    console.log(lastName)
   };
 
   const handleError = () => {
@@ -16,14 +29,12 @@ function SignIn() {
     <div>
         <p>Sign in with Google below!</p>
         <br />
-        <GoogleOAuthProvider clientId="597831817687-ekv1o2ukvp4mr8lhjpv60deeq2ul2k3o.apps.googleusercontent.com">
             <GoogleLogin
             onSuccess={handleSuccess}
             onError={handleError}
             />
-        </GoogleOAuthProvider>
     </div>
   );
 }
 
-export default SignIn
+export default SignIn;
